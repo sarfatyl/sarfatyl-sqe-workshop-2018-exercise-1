@@ -166,7 +166,7 @@ describe('The javascript parser', () => {
             {'line':2,'type':'variable declaration','name':'z','condition':'','value':'x+y/2'}];
         assert.equal(JSON.stringify(returned),JSON.stringify(expected));
     });
-    it('this is parse check for if else if statement', () => {
+    it('this is parse check for if else-if statement', () => {
         var inputT='if (X < V[mid])high = mid - 1;else if (X > V[mid])low = mid + 1;else mid=1;';
         var json=parseCode(inputT);
         initiateLineInCode(0);
