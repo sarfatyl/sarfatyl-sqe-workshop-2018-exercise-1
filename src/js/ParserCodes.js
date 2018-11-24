@@ -17,13 +17,11 @@ function parseCodeFromJson(parsedJsonCode)
 {
     if (parsedJsonCode !=null)
     {
-
-            if (parsedJsonCode.type=='elseIf')
-                return ElseIfParse(parsedJsonCode);
-            if (parsedJsonCode.type=='ForStatement')
-                return ForStatementParse(parsedJsonCode);
-            return FirstNextTypes(parsedJsonCode);
-
+                if (parsedJsonCode.type == 'elseIf')
+                    return ElseIfParse(parsedJsonCode);
+                if (parsedJsonCode.type == 'ForStatement')
+                    return ForStatementParse(parsedJsonCode);
+                return FirstNextTypes(parsedJsonCode);
     }
     return null;
 }
@@ -96,7 +94,7 @@ function addValuesToTable(line, type, name, condition, value)
     return lineInTable;
 }
 function AssignmentExpressionParse(parsedJsonCode) {
-    return addValuesToTable(lineInCode,'assignment expression',parseCodeFromJson(parsedJsonCode.left),'',parseCodeFromJson(parsedJsonCode.right));
+    AnsArray[AnsArray.length]= addValuesToTable(lineInCode,'assignment expression',parseCodeFromJson(parsedJsonCode.left),'',parseCodeFromJson(parsedJsonCode.right));
 }
 function VariableDeclarationParse(parsedJsonCode) {
     let i=0;

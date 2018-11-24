@@ -44,6 +44,7 @@ describe('The javascript parser', () => {
         parseCodeFromJson(json);
         let returned = getAnsArray();
         var expected=[{'line':0,'type':'for statement','name':'','condition':'i<5','value':''},
+            {'line':0,'type':'assignment expression','name':'i','condition':'','value':0},
             {'line':0,'type':'update expression','name':'i','condition':'','value':'++'}];
         assert.equal(JSON.stringify(returned),JSON.stringify(expected));
     });
@@ -108,20 +109,12 @@ describe('The javascript parser', () => {
         parseCodeFromJson(json);
         let returned = getAnsArray();
         var expected=[{'line':0,'type':'if statment','name':'','condition':'x<7','value':''},
-            {'line':2,'type':'else','name':'','condition':'','value':''}];
+            {'line':1,'type':'assignment expression','name':'x','condition':'','value':'x-1'},
+            {'line':2,'type':'else','name':'','condition':'','value':''},
+            {'line':3,'type':'assignment expression','name':'x','condition':'','value':'x+1'}];
         assert.equal(JSON.stringify(returned),JSON.stringify(expected));
     });
-    it('this is parse check for if else if statement', () => {
-        var inputT='  if (x < 7) {x = x- 1;} else if(x>9){x=x+1;}';
-        var json=parseCode(inputT);
-        initiateLineInCode(0);
-        initiateArray();
-        parseCodeFromJson(json);
-        let returned = getAnsArray();
-        var expected=[{'line':0,'type':'if statment','name':'','condition':'x<7','value':''},
-            {'line':2,'type':'else if statment','name':'','condition':'x>9','value':''}];
-        assert.equal(JSON.stringify(returned),JSON.stringify(expected));
-    });
+
     it('this is parse check update statement prefix', () => {
         var inputT='let i=7;++i;';
         var json=parseCode(inputT);
@@ -174,11 +167,14 @@ describe('The javascript parser', () => {
         parseCodeFromJson(json);
         let returned = getAnsArray();
         var expected=[{'line':0,'type':'if statment','name':'','condition':'X<V[mid]','value':''},
+            {'line':1,'type':'assignment expression','name':'high','condition':'','value':'mid-1'},
             {'line':2,'type':'else if statment','name':'','condition':'X>V[mid]','value':''},
-            {'line':4,'type':'else','name':'','condition':'','value':''}];
+            {'line':3,'type':'assignment expression','name':'low','condition':'','value':'mid+1'},
+            {'line':4,'type':'else','name':'','condition':'','value':''},
+            {'line':5,'type':'assignment expression','name':'mid','condition':'','value':1}];
         assert.equal(JSON.stringify(returned),JSON.stringify(expected));
     });
-    it('this is parse check for null return', () => {
+    it('this is parse check for null-return', () => {
         var inputT='function parseCodeFromJson(){if (1>2){if (3<2) {}}return null;}';
         var json=parseCode(inputT);
         initiateLineInCode(1);
